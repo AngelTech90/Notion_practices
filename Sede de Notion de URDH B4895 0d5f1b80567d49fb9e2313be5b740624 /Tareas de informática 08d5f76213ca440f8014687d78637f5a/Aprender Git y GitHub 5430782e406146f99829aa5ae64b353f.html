@@ -1,0 +1,806 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Aprender Git y GitHub</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5430782e-4061-46f9-9829-aa5ae64b353f" class="page sans"><header><h1 class="page-title">Aprender Git y GitHub</h1><p class="page-description"></p></header><div class="page-body"><p id="faef0376-24d8-47cd-a042-1a99cda90e06" class="">
+</p><h2 id="444a5d0b-7be0-4f5a-82c6-3f5a3567574c" class="">Text notes of git:</h2><p id="02920724-3f9c-4b99-9a88-62524009036a" class="">
+</p><h3 id="ed332863-62d2-4a16-bb61-42f7d497faad" class="">Initial config:</h3><p id="899cebdb-26c8-468f-88ed-de8538e351e2" class=""><div class="indented"><p id="8accf1c7-8844-42cb-b06b-78290e5046ee" class="">When we open our terminal is important know that when we create git repository it will have our iD that is compound of our alias and Gmail.</p><p id="66ecff0e-f8c0-4692-9ba3-0792b5420f23" class="">
+</p><p id="09764231-fc9d-4c82-86f4-b9b2d467097d" class="">💥In git, we have 3 levels of herarchy, local, global and system.</p><p id="fecb5403-7c97-432f-b8c7-47059263c9f5" class="">
+</p><p id="293176f9-c077-44fe-b289-9d5f5420e0c9" class="">💥A simple dir have a local reach for example.</p><p id="b493a2bd-8f53-44da-bdd8-74339aab4b6f" class="">
+</p><p id="89ef2e20-91b9-43e0-b046-9d6add3c72cc" class="">💥All our OS user inside have a global reach.</p><p id="b0afc954-0923-4780-92fa-818974f062f3" class="">
+</p><p id="f668e712-84c3-450b-bb91-8a74cc27ace4" class="">💥All inside our OS have a system reach.<div class="indented"><p id="851a3956-357a-49e2-b5fe-d844e7cdc760" class="">
+</p></div></p><p id="2f43b5e8-8651-4a25-bb85-977b2aaf5f21" class="">💥With &quot;git config&quot; we can set the reach that we will use to work:<div class="indented"><p id="25b4439a-b46f-4c20-ac4c-1cdb13f0f55c" class="">git config --local</p><p id="91ecee5d-bc83-4075-b4ec-bcdec40a9005" class="">git config --global</p><p id="b1a5cb26-3f8e-475b-83fa-6bad41644669" class="">git config --local</p><p id="ae1a3862-a31c-41c8-8ff1-c821154c7224" class="">
+</p></div></p><p id="b56740d5-4231-41ae-9278-4529e316589c" class="">💥We can config our global user name in git using:<div class="indented"><p id="9d9f8c47-f84c-45d4-9079-64288ee289b4" class="">git config --global <a href="http://user.name/">user.name</a> &quot;git user name&quot;</p><p id="af3dbf03-52e8-4bb4-9851-f74c97f31de4" class="">
+</p></div></p><p id="020610a5-a183-4673-810d-34317384c8da" class="">💥And for set our mail:<div class="indented"><p id="5b5dfc76-5e5e-486a-95b9-5fec5e9dbb9d" class="">git config --global user.email &quot;git mail&quot;</p><p id="6780d7a0-a604-4ffa-8d7d-9cf0fc5ee071" class="">
+</p></div></p><p id="86caaa25-e909-4e44-b6bc-c2b658135b1f" class="">💥When we work with git we usually work with a code editor too, we have to config were code editor we&#x27;ll use:<div class="indented"><p id="22186010-5d7e-4862-8355-5865c4658d13" class="">For put like editor vs code:<div class="indented"><p id="d7f97ac0-eedf-4f8d-8457-0eee19659bf7" class="">git config --global core.user &quot;code --wait&quot;</p><p id="c1722f93-f851-4ba8-8a45-de68f38e16c0" class="">The &quot;--wait&quot; is for load our editor once we stop to use it.</p><p id="61d63d43-4210-4ad5-aadb-0f2efbd2e593" class="">
+</p></div></p></div></p><p id="a516d09f-4ff6-42fc-95fe-977aa953dac2" class="">💥If we want to activate our colors in our IU we write:<div class="indented"><p id="1f680c7b-303a-4384-bc5f-525fa24c0fcb" class="">git config --global color.ui true</p><p id="4005d923-4443-473e-b4a3-36f100bce204" class="">
+</p></div></p><p id="c3896dd4-8848-41db-b0ee-26aaf8964b89" class="">💥Basically in windows we have 2 special and hidden chars for give a line jump and a reset with some concept called carriage return linefield.</p><p id="22c0380f-2c44-4321-ba6a-54e11ecec1aa" class=""><br/>💥(crlf) this makes a line jump but returning to the start of where we start to write.<br/></p><p id="5db22d38-fdac-4a35-887f-9e42a74e5b68" class="">
+</p><p id="1113a4be-8b08-485e-b61c-edacb8ea9148" class="">💥This concept is more the concat of the linefield that is for only go down the currently writing line, and the carriage return, that take<br/>us again to the start of the line.<br/></p><p id="c8cea2e3-a4e3-4ca9-91af-06425b8b0bfc" class="">
+</p><p id="5b6807e6-1413-4f6b-bb4e-51586d8d7ccd" class="">💥This is a special feature of windows operative system , beacause in linux or mac works diferent.</p><p id="eef3b81f-3d4b-4c7f-9e9a-aac2092ba686" class="">
+</p><p id="d8eb1155-c70d-4a27-a990-599bfc495037" class="">💥&quot;\r&quot; in windows is the carriage return.</p><p id="ca51afe4-a7ae-4940-a32b-c76d928b33f7" class="">💥&quot;\n&quot; in windows is the linefield.</p><p id="dc26472c-963c-422b-bf37-a9ea3f8f9d33" class="">
+</p><p id="c4a6639c-0133-48e3-8b5c-aaf7763f08e8" class="">💥This is important because when we will work with linux or mac repos we have to get the carriage return and our linefield in our git for<br/>don&#x27;t have troubles working with that.<br/><div class="indented"><p id="41e6ba66-1203-402e-a1a4-e3f55b0898e4" class="">
+</p></div></p><p id="2ff0931c-0bb4-45ba-9de8-9c8bb72756e5" class="">💥We write if we are using windows this:<div class="indented"><p id="0395243f-a913-4efc-9d63-b8a7e73d298d" class="">git config --global core.autocrlf true</p><p id="baf99e0e-25a6-4440-add7-e8fa31cc7c66" class="">
+</p><p id="1b8d7063-f54c-4b8c-8640-68d86319061c" class="">
+</p><p id="78faa6a4-0a65-44b8-893f-4f4855497f76" class="">
+</p></div></p><p id="631052c6-a555-4340-b026-995bf6717efa" class="">💥We write this if we are in linux or mac:<div class="indented"><p id="2422254c-39d4-48a0-93ce-8295c38dc0e4" class="">git config --global core.autocrlf input</p><p id="0c224bc9-dd03-47ae-a599-e5ea847cc4c2" class="">
+</p><p id="505cd793-a32f-49a8-a8ea-b01f49762414" class="">
+</p><h3 id="348cb9e1-7a8b-4b49-a426-a28194965400" class="">First steps in git</h3><p id="ac5fe57e-f7fe-44cd-beee-77316ba33765" class=""><div class="indented"><blockquote id="235d3d4d-944b-4c41-9f3f-da15b2ec7112" class="">Creating and understanding our first repo:</blockquote><p id="199c2db5-3afd-4fb0-bb23-3760092062a6" class="">
+</p><figure id="d390fd26-88af-4e74-acd1-ba769b46a52b" class="image"><a href="Aprender%20Git%20y%20GitHub%205430782e406146f99829aa5ae64b353f/Sin_nombre.png"><img style="width:636px" src="Aprender%20Git%20y%20GitHub%205430782e406146f99829aa5ae64b353f/Sin_nombre.png"/></a></figure></div></p><p id="9508d549-c4bb-4357-86b6-98166f13a138" class="">
+</p><h3 id="8a964398-577f-4db7-a79f-ee94c1c7935f" class="">Some important details:</h3><p id="27899996-81c9-425f-b0b8-4452c5419e2f" class=""><div class="indented"><p id="998c21c4-9db3-4633-aadd-b38b1a23570f" class="">💥The staging area is for valid where our changes of our project is ready for upload our server.</p><p id="24171b26-6c96-4fae-93ed-ab9fb57f37ce" class="">
+</p><p id="4809509e-dbba-4d27-9660-1a38c366cdaa" class="">💥The final repo is the part were is our final project.</p><p id="f6209ae1-d926-4949-b043-f44f91ecd599" class="">
+</p><p id="c1cadf50-ff12-4848-a75d-f17a66abc7b6" class="">
+</p></div></p><h2 id="7e24ab50-4876-4e51-8905-35ea3aa454d1" class="">How files works in git:</h2><p id="6c5d0669-4e24-47f3-8337-01eac2497ed4" class="">
+</p><figure id="75534ad2-45d3-4e28-b385-fc93e67dbba1" class="image"><a href="Aprender%20Git%20y%20GitHub%205430782e406146f99829aa5ae64b353f/Sin_nombre%201.png"><img style="width:2500px" src="Aprender%20Git%20y%20GitHub%205430782e406146f99829aa5ae64b353f/Sin_nombre%201.png"/></a></figure><p id="6006f80f-6188-4035-b42e-0da7656c96ea" class="">
+</p><p id="8f557712-a530-429d-91a7-a4a2e035474b" class="">
+</p><h3 id="8e0693b5-623b-4f71-bd58-3eb61bdd05f6" class="">Creating first repo:</h3><p id="0015bb0c-034b-4435-8a0b-6c6155fc97e1" class="">💥For create a git repo we enter in directory were we need to use it and write:</p><p id="50212263-27d7-41a8-bdfb-90b19ecf49c2" class="">
+</p><p id="96088d45-c11f-4302-921e-a3a9bd2d1419" class="">git init</p><p id="e43fd4f9-2abb-43c4-a561-3a53d2a6a45d" class="">
+</p><p id="4bc1c977-180a-41c4-bbd1-ad2b211c39ad" class="">Making this we create all the internal structure in our dir for manage our git repository.</p><p id="c960f784-9c37-4fac-9e25-917258a48737" class="">
+</p><p id="f51ce01d-ccf7-4104-ab4d-213c234345a4" class="">💥Git bash is based in Linux, so we move equal in this terminal.</p><p id="79307026-8b5d-4e0c-a498-080fe326ac41" class="">
+</p></div></p><blockquote id="250b4617-3c5f-416a-ae99-3a068f432ea4" class="">A git branch is like a time line.</blockquote><p id="88e22004-849f-4848-a4d2-09f7ba7f02d3" class="">
+</p><p id="d223b260-c4f2-4c21-90f6-d80f196659ec" class="">💥For put inside a file in the staging area we write:<div class="indented"><p id="16e21084-2a92-48fe-87ca-07dff1d9d0a7" class="">     git add name_file</p></div></p><p id="bf55abd7-b8d6-430a-89b5-761bf59a09df" class=""><div class="indented"><p id="64293836-8bc7-4714-bcf9-3c6577d52ce6" class="">💥Example:<div class="indented"><p id="0b47a73a-b3c7-43c3-afb7-1e82170684f5" class="">   git add index.js</p></div></p></div></p><p id="72927b8f-2c45-4e0f-bc03-6c0985ca2ef2" class="">
+</p><p id="613e0e73-978a-47e1-8860-3a883da3b8c9" class="">💥For see how is our git status:<div class="indented"><p id="f804c651-d363-4fa8-90fa-b12a2587c51a" class="">git status</p></div></p><p id="82d3c607-1582-4609-a6ca-177a31569996" class="">
+</p><p id="c05207e9-48a6-4964-b0c1-376e9a1230cc" class="">💥For remove a file of the stagging area:<div class="indented"><p id="8dc2571a-6396-438d-b898-f3ff52e86fd8" class="">git rm —cached prove.py</p></div></p><p id="cd9c84b7-d945-4ecc-bbb5-ef2ea6b276ec" class="">
+</p><p id="0e75e4f6-8217-4651-87b4-3b3a4bf33b8a" class="">💥All files in red when see our git status are out of our work flow in git.</p><p id="0b3e60d3-ceea-4341-8d3a-56e14814e26d" class="">
+</p></div></p><h3 id="826017e0-f0a9-445a-a8a9-920458a4db18" class="">Making our first commit in git:</h3><p id="dfd640fa-fb4f-4c8f-b055-6c8383f8a3a1" class="">💥We write for commit a new file in repo:<div class="indented"><p id="8ab3af47-7229-4e84-a587-ef472a2d66bd" class="">git commit </p><p id="40588586-1f18-4467-8edb-4d24a4255ecc" class="">
+</p></div></p><p id="5359136b-fc94-4473-ab20-bb932a3c516f" class="">💥The commit works uploading all in stagging area to repo</p><p id="3a39ef5c-2f0a-414b-afd9-30a35e3af679" class="">
+</p><p id="642f8523-ad18-4e74-bb4f-8ca92b7d43d3" class="">💥For add a message in our commit we can use the wildcard -m</p><p id="22fad910-e70a-4ddd-8c4f-2e3c74b1274d" class="">
+</p><p id="71de61f3-302f-44cc-a575-335822c1597b" class="">git commit -m “Hi, there’s our first commit”</p><p id="965e9712-1712-4466-acc5-e37d14674c18" class="">
+</p><p id="83d01a24-a95f-4d29-a86c-f560081bc7e2" class="">
+</p><blockquote id="94abbc07-efef-44fb-abb5-59adf78075fa" class="">The git commits have to get a lot of details like:</blockquote><p id="82d416d5-fced-49f2-8bbe-202df7893bf1" class="">💥What commited file do.</p><p id="1d4873c4-52c7-4264-8ffb-bb0720f28ced" class="">💥Reasons for commit</p><p id="183a8018-7f9f-4c1c-865f-88e828a0199b" class="">💥And general details of file in the project git repo</p><p id="7fcd4eae-69e8-4fdb-beec-64d9a5a8b99f" class="">
+</p><p id="37d00c05-8f4b-42be-b058-2979d39de5da" class="">
+</p><p id="e1a2a6ec-723b-4fd3-a720-77b5e140d172" class="">💥If we want to directly commit our file we use wildcard -a:</p><p id="98918a5d-9014-4fd3-b908-45240f0f1db0" class="">
+</p><p id="2b359a6f-c67c-40a2-b73a-e1283015a9c2" class="">git commit -a<div class="indented"><p id="c0f3bc9c-5eeb-488e-bcf4-ef26c6ed29c7" class="">💥With this we don’t need to add our files in the staging area.</p><p id="c4150ef4-3355-4fef-aa5b-626e9af1bc80" class="">
+</p></div></p><h2 id="d8574019-5b69-408f-81b5-2a9c91eb9dd3" class="">Managing the commits in git:</h2><p id="0c11bfdf-5338-4adb-a608-61c4ed86fdde" class="">
+</p><p id="fa57be61-90fe-4402-a09b-56691355dadf" class="">💥For  restore the files to the work area we use:<div class="indented"><p id="d58688ca-a11f-4ce0-bb8e-ad52dc7e71d2" class="">git restore</p><p id="4467e398-619e-4750-9fbc-e616678adc1a" class="">
+</p></div></p><p id="779526f9-0e32-46a6-b588-72f6b24e9b2c" class="">💥For check our modified archive and see if our archive get the changes we use:</p><p id="f562c472-d792-4c11-a964-f25935cae632" class=""><div class="indented"><p id="b1ebe4cb-9390-478b-a17a-e57b1d8df798" class="">git checkout prove.py</p><p id="9df68b27-596c-4db0-835d-1c216eaf7f86" class="">
+</p></div></p><p id="59826b2c-142f-4ce3-8e0a-1f11b5fb4f8b" class="">💥Git checkout works checking the last state of our project after the last commit and we restore the archive in our work area.</p><p id="803b50ea-5a9b-4c1c-b322-eab58638a315" class="">
+</p><p id="e3fc64f0-f384-41b6-8f33-4e98cead133e" class="">
+</p><p id="8d254c15-6a0b-4e7c-a01a-ec53ac78d56b" class="">💥For reset the changes in our staging area and our commit area:<div class="indented"><p id="02b4d4a2-15af-4657-a128-4d7e2d589160" class="">git reset —hard</p><p id="62693a38-388a-4fc5-9666-f93706a98016" class="">
+</p><p id="96366d84-02cd-4e2a-a5c9-930d46982957" class="">💥For get a shortened vision of git status we write:</p><p id="6299d9de-7cc5-42c7-8360-c369d4a95842" class=""><div class="indented"><p id="dc300178-288d-48fc-aef4-85dc7d51e898" class="">     git status -s<div class="indented"><p id="58448c0b-9d0a-4cc4-9721-a7a4e491cd9a" class="">       or</p><p id="39d8f023-b766-4b50-8ca7-a265fb8b8f9c" class="">git status —short</p></div></p><p id="615a048b-dc41-4b86-8667-93fccb4db602" class="">
+</p><p id="8e762d7d-c8a8-4fa4-af30-bcb771a51138" class="">💥For see the code inside our committed file we use:<div class="indented"><p id="7c90e46b-7826-4f96-8c25-be4e8698907c" class="">git show prove.py</p><p id="3f739afe-eb3f-482b-bd9a-b1529dbbaa26" class="">
+</p><p id="4f2de371-4fd9-4a95-98f2-e4b58b84a510" class="">
+</p></div></p><p id="3edd6007-6854-4f90-aa7b-0237d01368e2" class="">💥For compare the differences in the staged area and the work area:<div class="indented"><p id="69071617-6a5a-45cb-8c78-bbbf2e589a10" class="">git diff —staged</p><p id="30419c59-d2d9-470e-981b-02df45c1e635" class="">
+</p></div></p><p id="d001f5e2-783f-4894-bfa0-33a64952ed0c" class="">
+</p><blockquote id="06aa295d-c5d4-41e9-b4d3-fdfb6bb0f4f1" class="">For compare the differences between commits we have to get a id for every commit:</blockquote><p id="748c7a1c-4537-4aa3-86a9-49d161128509" class="">
+</p><p id="792e787d-8508-4f9f-b1a7-1367225459a0" class="">
+</p><p id="7072a973-e4e3-4a48-826e-b43376fc6d17" class="">💥If we want to see tall he commits ID:<div class="indented"><p id="94c0dbbe-dd14-489b-a1b1-b450b55e1b4f" class="">  git log</p></div></p><p id="1a7df139-20bf-4d2e-972b-e3b2083f0dd1" class="">
+</p><p id="3ff2898e-d5b9-4599-bf86-37d74145e29d" class="">💥If we want to see all our commits in oneline:<div class="indented"><p id="0101c461-d383-4987-b033-e3a8267a37c5" class="">git log —oneline</p></div></p><p id="eb0f8839-0549-4746-8fd7-024572bd4fdf" class="">
+</p><p id="42bc7f9c-2c53-43b7-a3ae-4682a4ad493f" class="">💥Every commit have a unique hash id, for avoid that it be have to manipulate in our global config the amount of chars that could be showed abbvred in a one line commit id (usually this is important in very big repos, in the most cases 5 chars are suficent).</p><p id="d00dbb19-9b75-4aad-a893-af13475166bc" class=""><div class="indented"><p id="945d6ea6-15aa-4e45-a6d0-af326e30da63" class="">git config —global core.abbrev 5</p></div></p><p id="241c05c0-b36d-4130-8212-0eaec0b93aaa" class="">
+</p><p id="7fd663d0-facb-48ef-88c7-c452030abdea" class="">💥If we now see the abbvrev ID we can use it for compare the commits:<div class="indented"><p id="2565a392-5e2d-405b-80a0-7abcb0fb59b8" class="">git diff h8j29 92jdc <div class="indented"><p id="2dad1f80-3435-47cb-9388-6147d8c6d753" class="">💥Here we are comparing 2 differents commits (5 chars every abbvreved id).</p></div></p></div></p><p id="58d0886b-83ee-41af-91bc-382dbd8f853b" class="">
+</p><p id="d6868a8b-835b-46e9-82bb-e3d4dde70f27" class="">💥For only see the name of the files that have any difference we use:<div class="indented"><p id="4ad5bf98-a05a-4dd6-82d7-e9c78b77d37e" class="">git diff h8j29 92jdc —name-only</p><p id="d81e224e-820b-4cfa-96ad-73dc62012d46" class="">
+</p></div></p></div></p><p id="da04af99-03b7-4dad-923c-4cd664ef5d12" class="">💥For see directly the change in the chars in our commits:<div class="indented"><p id="b5be02d2-2f88-4185-9d50-db6bdb647de6" class="">git diff —word-diff</p></div></p></div></p><p id="f07c2046-b84c-4c4a-b132-ada1cc850553" class="">
+</p><figure id="4010f871-8d27-4fc1-80ae-f1d11dfb636f" class="link-to-page"><a href="Aprender%20Git%20y%20GitHub%205430782e406146f99829aa5ae64b353f/Little%20git%20bash%20tutorial%204010f8718d274fc180aef1d11dfb636f.html">Little git bash tutorial:</a></figure><p id="589562fb-af4b-42ea-a91c-69cebc99e84a" class="">
+</p><p id="07e96e03-77ee-4e94-af39-09a79ec4e5ee" class="">
+</p><h3 id="a62b87f7-e228-4f07-9ee6-448658f52482" class="">Modify and delete a commit</h3><p id="f4282dc7-c30e-403c-861f-b97f56dbe609" class="">
+</p><p id="56f29192-7dae-4aaf-bd41-66fd19130461" class="">Is not recommended modify the last commit because we are removing the last element for generate a new commit to add to our master branch.</p><p id="be9b3a5d-ea99-4e97-9f08-a619d7e108b7" class="">
+</p><p id="a9e3444a-7377-4bc1-9632-49ea6734f34e" class="">We can use this ONLY with the last commits:<br/><br/>git commit -amend<br/></p><p id="bef0f035-1af1-4e1a-a02a-c04ea300e14c" class="">
+</p><p id="9b312401-7f77-4512-b0f2-c93f48e078b4" class="">
+</p><h3 id="26c61bc1-6a3b-4093-9fa0-b3af96aae127" class="">Use git reset:</h3><p id="b3135ad6-9f7b-4470-9d35-c625a9ec426c" class="">
+</p><p id="c3cc101b-ae5a-4c0c-8837-786a451fc02a" class="">we can use —soft wild card for move the head of our branch of our commit area and let a copy in the staging area for be modified and commited:</p><p id="b8b1b8f7-7206-4294-bf07-295dea108644" class=""><div class="indented"><p id="ea6f5b92-bb1a-43bb-9476-d3b4bd18bf69" class="">git reset —soft e4rxt</p></div></p><p id="3e686205-35b4-46a4-a147-78447eba272f" class="">
+</p><p id="9f4436c5-f697-480f-9695-17eaa386ecb2" class="">If we want reset our head an specific amount of commits back we do:</p><p id="78180129-f113-4a30-b902-eedf4ce1b0d5" class=""><div class="indented"><p id="cf67cf3d-de2a-4cd2-91cc-5fc84b9ba122" class="">git reset —soft head~3</p><p id="6abe4133-9e68-46f9-86c0-8a531dd9acb9" class="">
+</p><p id="518f79c9-920d-4c9e-8e42-b944fc0731c6" class="">3 is the amount of commits that we go back.</p><p id="3239cfb7-9f8f-4643-94c2-220f6b85c8c4" class="">
+</p><p id="d970225d-4060-4c44-8133-d9162b2ca7fb" class="">
+</p></div></p><p id="daa59133-82d9-43f7-9273-6850b62c5d63" class="">We can use git reset mixed  for remove all commits after the selected new head:</p><p id="438ffefc-8369-4b6a-a093-5fdbb773619b" class=""><div class="indented"><p id="188a8834-a046-44ad-a147-5d1c2ce33c9e" class="">git reset —mixed 34af3</p></div></p><p id="bf565e1d-052d-4513-b221-4ed7a2de9249" class="">
+</p><p id="40ab0c48-0ee9-45d2-9a5c-a6c77b1e39d3" class="">
+</p><p id="0bbcba09-61e0-47a2-a63b-5514380e6f81" class="">With git reset hard we do this:</p><p id="9f2f386f-5f39-4964-b20c-259514172faf" class="">
+</p><p id="f2db6a62-63ab-4aee-bc71-5938dbd47c0b" class="">1.We delete all commits after we select our new head.</p><p id="29619e35-0dfc-4208-84c3-f554648469c0" class="">2.We delete all information in  our staging area.</p><p id="f335fc65-51f2-4ef8-96a2-7d7c2b8d51c0" class="">3.We replace and overwrite if is necesary the info of work area with the info of the deleted commit.</p><p id="0f276ede-565f-4477-b20f-ea27f7ddcf32" class="">
+</p><p id="cdc83a73-3d8c-450b-81c6-de513176175a" class="">//Time for practice.</p><p id="d27509fc-41fe-44ab-afd1-747f5c161cfc" class="">
+</p><p id="727866a5-d79e-49f9-8c3b-765671b01dc9" class="">We stop at 01:30:11</p><p id="19d98228-c878-47c7-94b6-3c87d39c2874" class="">
+</p><p id="2f0a6aba-47fb-48cc-ba20-88885895b698" class="">
+</p><h2 id="da7f1d7c-2d10-4a54-bb3a-555b2b6a8f23" class="">Git branches:</h2><p id="9246890d-895a-4f18-8bcd-77ea535622f3" class="">
+</p><p id="e9c90d1d-8b3d-43bb-8739-6a1496110b2b" class="">The concept that make git different of other versions control systems is the branches concepts.</p><p id="5323e041-dd34-4f8e-85e2-dc595a7b7181" class="">
+</p><p id="6a2b2d98-dcc6-4840-a290-3297977f4be7" class="">A branch in git is basically a pointer that check the commits time lines in our repository.</p><p id="e80cb994-55ca-43b4-80b1-f2419c39bf42" class="">
+</p><p id="e9c6bacd-77ea-4766-b6b8-037f6bf4016f" class="">A good analogy is see a branch like other copy of our project, were we keep a flow of work that don’t affect the master branch</p><p id="36743856-ca74-4d68-acb7-bf5e15555ee2" class="">
+</p><p id="a3cbb80f-ae18-468a-af5a-c220c1928a27" class="">And we can make a “merge” that in git is fusion a branch with the master branch of our project.</p><p id="b7abd0d8-6640-46bd-a890-ba7553f25ffd" class="">
+</p><p id="96d817b0-a0cd-4f11-96f2-b8bd16f7096a" class="">A branch is a very temporal version of the project that only exist for a exact purpose, like solve an error, optimize a code or in general the normal tasks that we can see in our project.</p><p id="52cea1cc-8efe-4ab0-84eb-39351fae1186" class="">
+</p><p id="89412132-491f-44a9-b925-904a12b6c33a" class="">And then when we solve the task that we use to create the branch we make a merge in implement the changes to the project.</p><p id="149a48d5-a587-456b-92cf-f29c49899266" class="">
+</p><p id="dd46828b-c605-4f13-8bb9-47e9128a63fd" class="">And when we finish the task we can erase the branch that we create to solve the problem.</p><p id="f7fed09d-bb09-40df-b3a6-905a081b6ded" class="">
+</p><p id="dd9a492d-9588-498e-8e39-64bb1a23b5e7" class="">Usually, for name our git brances we use the kebab-case:</p><p id="06c28b7a-7dfa-4edc-825c-a8e2010f9bf0" class="">
+</p><p id="fdf6a549-c3f5-43c3-93ae-f2c0e66de5d9" class="">first-git-branch</p><p id="54441391-19b4-4220-9627-b08519dabd59" class="">
+</p><h3 id="649e68b1-d085-4f0a-be6d-deb846535f2e" class="">Creating our first branch in git:</h3><p id="c3fc9808-7aa8-4990-9efb-712dc872c1b4" class="">
+</p><p id="b559bf29-d1f2-483a-9ac7-b348014ca3d3" class="">We write:</p><p id="9d732378-50fc-46a6-b9a5-a9305ff8cd22" class="">
+</p><p id="4d14d1b1-e7b1-4c6b-94f6-6239e0b97078" class="">git branch new-branch</p><p id="5342786e-ce46-4a72-a2b2-bb43ec048294" class="">
+</p><p id="c0eb23c5-14f9-4501-a376-12e2c914407d" class="">and for see the total branches in our project:</p><p id="4969298b-8961-471a-bb51-1f3e778f439a" class="">
+</p><p id="d959d4fe-3515-49d0-848d-7addf0d884c4" class="">git branch</p><p id="fdd250bc-a842-4c64-a5c8-e3dde20d6ee9" class="">
+</p><p id="6e37e1eb-5256-4f8d-b6ca-504b3bc07025" class="">if we want to move in our project branches we use:</p><p id="a297b6d0-0b0a-4338-a610-04e9dfb14990" class="">
+</p><p id="e87aa89f-f8ed-429a-82b2-27065f56fbcf" class="">git switch new-branch</p><p id="5b6bb8e0-aa36-49c0-8a03-928ca7081b8d" class="">
+</p><p id="c0523307-a827-4e1d-9f8c-1442b8179e9d" class="">
+</p><p id="410c5253-8473-4894-a0ea-d52686ed43c4" class="">Usually when we create a git branch we want to move directly to the branch because we want to solve a problem, for don’t have to use 2 commands and go to the new branch we write:</p><p id="cf9468c3-76e0-4ae9-8a8a-26e2cc03ffb3" class="">
+</p><p id="6e4b1d84-967e-41e4-a647-bcb49f8f90bf" class="">git switch -c new-brach</p><p id="930cd4df-d38b-4e82-9f99-d991700d26b8" class="">
+</p><p id="733f7578-0314-4604-b667-c4889ca346e2" class="">We can delete a branch writing:</p><p id="011bb5a6-2137-43f9-a65e-2bad33932fe6" class="">
+</p><p id="555514f1-be43-49ae-9126-cb78798f20a6" class="">git branch -d new-branch</p><p id="24993308-a9f0-472d-83e9-f56abcdd3bd7" class="">
+</p><p id="b9644423-ddd6-429f-8f44-64f2cdeb568f" class="">Is very important that when we delete a branch we been in the master branch</p><p id="80ae6896-de17-4ba2-88b2-b77b3ffa0fb4" class="">
+</p><p id="1a270b72-ec37-4fef-954c-830539e6bedd" class="">For modify the branch name if we aren’t in the branch that we want to modify we write:</p><p id="d24ad562-6f72-4722-80be-c21e477a0cb5" class="">
+</p><p id="520ea92c-fbe4-4fe9-99dc-75948cb2d69f" class="">git branch -m new-branch new-name-branch</p><p id="e59c468f-28f9-4f35-871e-7a5619652eda" class="">
+</p><p id="c2e6e283-077f-4c49-a1d0-2e714986ae5e" class="">And if we are inside the branch that we want to modify we write:</p><p id="10e78ceb-c66a-4c9e-ac5e-33a022a4c6ef" class="">
+</p><p id="3f016aef-b8c0-47d5-bbd9-19ada500ea90" class="">git branch -m new-branch-name-two</p><p id="d6932848-aabf-4b46-b238-ce0e93c018ce" class="">
+</p><p id="a2038c98-5cf7-4648-821c-8bf8aa60aa29" class="">
+</p><h3 id="93bb80b7-97ef-4f39-9b01-3615a7035cc7" class="">How we can merge the git branches?:</h3><p id="2781305c-0ea9-4858-aa64-9e966e9ab189" class="">
+</p><p id="96b0e892-e9ac-43b3-aa23-47b4aa1c484e" class="">First we’ll go to the master branch, and then we write:</p><p id="c1d95c75-2e99-4676-aabc-8d70bf69b7b7" class="">
+</p><p id="f2c178e9-2b1c-4125-ba96-42b882f5a162" class="">git merge new-branch-name-two</p><p id="0a360614-4ce7-4e03-880d-71401b625d93" class="">
+</p><p id="62b1da51-529d-4a59-b18d-819c5622da58" class="">And now we have all the commits merged in our master branch (This apply to others branches that we want to merge).</p><p id="17b09d8f-88a3-42d6-9880-c895f4e6aef0" class="">
+</p><p id="73294635-cc04-4d33-a039-689104b21b30" class="">In the case that we make a mistake merging the branches or something we have the reset command, and we’ll reset our branch to the last commit that we merge:</p><p id="e013f595-8d6f-4a47-9088-2120cb5d1ed0" class="">
+</p><p id="1023e35a-23f1-4e80-80c9-e31dab268a83" class="">git reset —hard 8jnm3</p><p id="5c733d2d-e107-4e51-8bee-92509d26209e" class="">
+</p><p id="ceca26c5-e469-4da9-890c-f3c058ee5967" class="">
+</p><h2 id="3da14e9e-9104-4fde-939e-dfcb50a89cbd" class="">Merge conflicts:</h2><p id="c68a5c48-fb13-4a29-9dce-f7912a09912b" class="">
+</p><p id="fcad146d-eba3-46c7-866e-80c7924d0cd1" class="">we stop at —1:56:21</p><p id="94fd73ab-93ac-4039-a56f-55a7237bd6f8" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
